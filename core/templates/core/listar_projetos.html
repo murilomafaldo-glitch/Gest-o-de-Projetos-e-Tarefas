@@ -11,13 +11,18 @@
         Cadastrar novo projeto
     </a>
 
+
     {% for projeto in projetos %}
-        <h2>{{ projeto.nome }}</h2>
-        <p>{{ projeto.descricao }}</p>
-        <p>Data de início: {{ projeto.data_inicio }}</p>
-        <hr>
+        <div>
+            <h2>{{ projeto }}</h2>
+
+            <a href="{% url 'editar_projeto' projeto.pk %}">Editar</a>
+
+            <a href="{% url 'excluir_projeto' projeto.pk %}">Excluir</a>
+        </div>
     {% empty %}
         <p>Nenhum projeto cadastrado.</p>
     {% endfor %}
+
 </body>
 </html>
