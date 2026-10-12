@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Projeto
+from .models import Projeto, Tarefa
 
 
 class ProjetoForm(forms.ModelForm):
@@ -11,4 +11,12 @@ class ProjetoForm(forms.ModelForm):
             'data_inicio': forms.DateInput(
                 attrs={'type': 'date'}
             ),
+        }
+
+class TarefaForm(forms.ModelForm):
+    class Meta:
+        model = Tarefa
+        fields = ['titulo', 'descricao', 'projeto', 'concluida']
+        widgets = {
+            'projeto': forms.Select(),
         }
