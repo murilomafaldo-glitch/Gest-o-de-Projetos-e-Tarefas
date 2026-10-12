@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ titulo }}</title>
-</head>
-<body>
-    <h1>{{ titulo }}</h1>
+{% extends 'core/base.html' %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+{% block title %}{{ titulo }}{% endblock %}
 
-        <button type="submit">Salvar tarefa</button>
-    </form>
+{% block content %}
+<h1>{{ titulo }}</h1>
 
-    <a href="{% url 'listar_tarefas' %}">Cancelar e voltar</a>
-</body>
-</html>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar tarefa</button>
+</form>
+
+<a href="{% url 'listar_tarefas' %}">Voltar às tarefas</a>
+{% endblock %}

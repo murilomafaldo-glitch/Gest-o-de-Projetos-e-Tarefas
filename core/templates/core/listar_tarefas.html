@@ -1,47 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Tarefas</title>
-</head>
-<body>
-    <h1>Lista de Tarefas</h1>
+{% extends 'core/base.html' %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+{% block title %}Lista de Tarefas{% endblock %}
 
-    <a href="{% url 'listar_projetos' %}">Voltar aos projetos</a>
-    |
-    <a href="{% url 'cadastrar_tarefa' %}">Cadastrar nova tarefa</a>
+{% block content %}
+<h1>Lista de Tarefas</h1>
 
+<a href="{% url 'cadastrar_tarefa' %}">Cadastrar nova tarefa</a>
+
+<hr>
+
+{% for tarefa in tarefas %}
+    <div>
+        <h2>{{ tarefa.titulo }}</h2>
+        <p>Descrição: {{ tarefa.descricao|default:"Sem descrição" }}</p>
+        <p>Projeto: {{ tarefa.projeto.nome }}</p>
+        <p>Status:
+            {% if tarefa.concluida %}
+                Concluída
+            {% else %}
+                Pendente
+            {% endif %}
+        </p>
+
+        <a href="{% url 'editar_tarefa' tarefa.pk %}">Editar</a>
+        |
+        <a href="{% url 'excluir_tarefa' tarefa.pk %}">Excluir</a>
+    </div>
     <hr>
+{% empty %}
+    <p>Nenhuma tarefa cadastrada.</p>
+{% endfor %}
+{% endblock %}
 
-    {% for tarefa in tarefas %}
-        <div>
-            <h2>{{ tarefa.titulo }}</h2>
-
-            <p>Descrição: {{ tarefa.descricao|default:"Sem descrição" }}</p>
-            <p>Projeto: {{ tarefa.projeto.nome }}</p>
-
-            <p>
-                Status:
-                {% if tarefa.concluida %}
-                    Concluída
-                {% else %}
-                    Pendente
-                {% endif %}
-            </p>
-
-            <a href="{% url 'editar_tarefa' tarefa.pk %}">Editar</a>
-            |
-            <a href="{% url 'excluir_tarefa' tarefa.pk %}">Excluir</a>
-        </div>
-        <hr>
-    {% empty %}
-        <p>Nenhuma tarefa cadastrada.</p>
-    {% endfor %}
-</body>
-</html>
