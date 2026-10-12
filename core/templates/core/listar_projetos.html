@@ -1,28 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Projetos</title>
-</head>
-<body>
-    <h1>Lista de Projetos</h1>
+{% extends 'core/base.html' %}
 
-    <a href="{% url 'cadastrar_projeto' %}">
-        Cadastrar novo projeto
-    </a>
+{% block title %}Lista de Projetos{% endblock %}
 
+{% block content %}
+<h1>Lista de Projetos</h1>
 
-    {% for projeto in projetos %}
-        <div>
-            <h2>{{ projeto }}</h2>
+<a href="{% url 'cadastrar_projeto' %}">Cadastrar novo projeto</a>
 
-            <a href="{% url 'editar_projeto' projeto.pk %}">Editar</a>
+<hr>
 
-            <a href="{% url 'excluir_projeto' projeto.pk %}">Excluir</a>
-        </div>
-    {% empty %}
-        <p>Nenhum projeto cadastrado.</p>
-    {% endfor %}
+{% for projeto in projetos %}
+    <div>
+        <h2>{{ projeto.nome }}</h2>
+        <p>{{ projeto.descricao }}</p>
+        <p>Data de início: {{ projeto.data_inicio }}</p>
 
-</body>
-</html>
+        <a href="{% url 'editar_projeto' projeto.pk %}">Editar</a>
+        |
+        <a href="{% url 'excluir_projeto' projeto.pk %}">Excluir</a>
+    </div>
+    <hr>
+{% empty %}
+    <p>Nenhum projeto cadastrado.</p>
+{% endfor %}
+{% endblock %}
