@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Projetos</title>
+</head>
+<body>
+    <h1>Lista de Projetos</h1>
+
+    <a href="{% url 'cadastrar_projeto' %}">
+        Cadastrar novo projeto
+    </a>
+
+    {% for projeto in projetos %}
+        <h2>{{ projeto.nome }}</h2>
+        <p>{{ projeto.descricao }}</p>
+        <p>Data de início: {{ projeto.data_inicio }}</p>
+        <hr>
+    {% empty %}
+        <p>Nenhum projeto cadastrado.</p>
+    {% endfor %}
+</body>
+</html>
